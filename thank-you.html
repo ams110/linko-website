@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الشكر - Linko</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css_updates.css">
+    <style>
+        .thank-you-page {
+            text-align: center;
+            padding: 50px 20px;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thank-you-page h1 {
+            color: #00b0ff;
+            margin-bottom: 20px;
+        }
+        
+        .thank-you-page p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .thank-you-page .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #00b0ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .thank-you-page .btn:hover {
+            background-color: #0091ea;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="bg-rtd.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="thank-you-page">
+        <img src="logo_updated.webp" alt="Linko Logo" style="width: 120px; margin-bottom: 20px;">
+        
+        <h1 data-lang-ar>شكراً لتواصلك معنا!</h1>
+        <h1 data-lang-he>תודה שיצרת איתנו קשר!</h1>
+        
+        <p data-lang-ar>لقد تم استلام رسالتك بنجاح. سيقوم فريقنا بالرد عليك في أقرب وقت ممكن.</p>
+        <p data-lang-he>הודעתך התקבלה בהצלחה. הצוות שלנו יחזור אליך בהקדם האפשרי.</p>
+        
+        <a href="index.html" class="btn" data-lang-ar>العودة إلى الصفحة الرئيسية</a>
+        <a href="index.html" class="btn" data-lang-he>חזרה לדף הבית</a>
+    </div>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Scripts -->
+    <script src="language_switcher.js"></script>
+</body>
+</html>
