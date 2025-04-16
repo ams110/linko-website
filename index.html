@@ -244,58 +244,74 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 data-lang-ar>تواصل معنا</h2>
-            <h2 data-lang-he>צור קשר</h2>
-            <div class="contact-content">
-                <div class="contact-form">
-                    <form action="https://formspree.io/f/xovezeqy" method="POST">
-                        <div class="form-group">
-                            <label for="name" data-lang-ar>الاسم</label>
-                            <label for="name" data-lang-he>שם</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" data-lang-ar>البريد الإلكتروني</label>
-                            <label for="email" data-lang-he>אימייל</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" data-lang-ar>رقم الهاتف</label>
-                            <label for="phone" data-lang-he>מספר טלפון</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message" data-lang-ar>الرسالة</label>
-                            <label for="message" data-lang-he>הודעה</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn submit-btn">שלח</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <div class="info-item">
-                        <h3 data-lang-ar>العنوان</h3>
-                        <h3 data-lang-he>כתובת</h3>
-                        <p data-lang-ar>إسرائيل</p>
-                        <p data-lang-he>ישראל</p>
-                    </div>
-                    <div class="info-item">
-                        <h3 data-lang-ar>البريد الإلكتروني</h3>
-                        <h3 data-lang-he>אימייל</h3>
-                        <p>info@linko.com</p>
-                    </div>
-                    <div class="info-item">
-                        <h3 data-lang-ar>رقم الهاتف</h3>
-                        <h3 data-lang-he>מספר טלפון</h3>
-                        <p>0539630377</p>
-                        <p>0525001069</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   <!-- نموذج الاتصال المحسن مع Formspree -->
+<form action="https://formspree.io/f/xovezeqy" method="POST">
+    <!-- حقل مخفي لمنع البريد المزعج (honeypot) -->
+    <input type="text" name="_gotcha" style="display:none">
+    
+    <!-- تخصيص موضوع البريد الإلكتروني -->
+    <input type="hidden" name="_subject" value="رسالة جديدة من موقع Linko">
+    
+    <!-- إعادة توجيه بعد الإرسال -->
+    <input type="hidden" name="_next" value="https://linko.it.com/thank-you.html">
+    
+    <!-- تنسيق الرد التلقائي -->
+    <input type="hidden" name="_template" value="table">
+    
+    <div class="form-group">
+        <label for="name" data-lang-ar>الاسم</label>
+        <label for="name" data-lang-he>שם</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="email" data-lang-ar>البريد الإلكتروني</label>
+        <label for="email" data-lang-he>אימייל</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="phone" data-lang-ar>رقم الهاتف</label>
+        <label for="phone" data-lang-he>מספר טלפון</label>
+        <input type="tel" id="phone" name="phone" required>
+    </div>
+    
+    <!-- إضافة حقل جديد للخدمة المطلوبة -->
+    <div class="form-group">
+        <label for="service" data-lang-ar>الخدمة المطلوبة</label>
+        <label for="service" data-lang-he>השירות המבוקש</label>
+        <select id="service" name="service" required>
+            <option value="" data-lang-ar>-- اختر الخدمة --</option>
+            <option value="" data-lang-he>-- בחר שירות --</option>
+            <option value="internet" data-lang-ar>تركيب شبكات الإنترنت</option>
+            <option value="internet" data-lang-he>התקנת רשתות אינטרנט</option>
+            <option value="cameras" data-lang-ar>أنظمة كاميرات المراقبة</option>
+            <option value="cameras" data-lang-he>מערכות מצלמות אבטחה</option>
+            <option value="intercom" data-lang-ar>أنظمة الإنتركوم</option>
+            <option value="intercom" data-lang-he>מערכות אינטרקום</option>
+            <option value="alarm" data-lang-ar>أنظمة الإنذار والحماية</option>
+            <option value="alarm" data-lang-he>מערכות אזעקה והגנה</option>
+            <option value="other" data-lang-ar>خدمة أخرى</option>
+            <option value="other" data-lang-he>שירות אחר</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="message" data-lang-ar>الرسالة</label>
+        <label for="message" data-lang-he>הודעה</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    
+    <!-- زر الإرسال ثنائي اللغة -->
+    <button type="submit" class="btn submit-btn" data-lang-ar>إرسال</button>
+    <button type="submit" class="btn submit-btn" data-lang-he>שלח</button>
+    
+    <!-- إضافة مؤشر تحميل -->
+    <div class="form-loading" style="display: none;">
+        <div class="spinner"></div>
+        <p data-lang-ar>جاري الإرسال...</p>
+        <p data-lang-he>שולח...</p>
+    </div>
+</form>
+
 
     <!-- Footer -->
     <footer>
