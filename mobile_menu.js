@@ -1,0 +1,125 @@
+// Mobile Menu Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Create menu toggle button
+    const header = document.querySelector('header');
+    const logo = document.querySelector('.logo');
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.setAttribute('aria-label', 'Toggle menu');
+    
+    // Create three bars for the hamburger icon
+    for (let i = 0; i < 3; i++) {
+        const bar = document.createElement('span');
+        bar.className = 'bar';
+        menuToggle.appendChild(bar);
+    }
+    
+    // Insert the menu toggle button next to the logo
+    if (logo) {
+        logo.after(menuToggle);
+    } else {
+        header.insertBefore(menuToggle, header.firstChild);
+    }
+    
+    // Get the navigation element
+    const nav = document.querySelector('nav');
+    
+    // Create language switcher inside the mobile menu
+    createLanguageSwitcherInMenu();
+    
+    // Add click event listener to the menu toggle button
+    menuToggle.addEventListener('click', function() {
+        // Toggle active class on menu toggle button
+        this.classList.toggle('active');
+        
+        // Toggle active class on navigation
+        nav.classList.toggle('active');
+        
+        // Toggle aria-expanded attribute for accessibility
+        const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+        this.setAttribute('aria-expanded', !expanded);
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!nav.contains(event.target) && !menuToggle.contains(event.target) && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            menuToggle.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Close menu when clicking on a menu item
+    const menuItems = document.querySelectorAll('nav ul li a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+    
+    // Close menu when pressing Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            menuToggle.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+});
+
+// Create language switcher inside the mobile menu
+function createLanguageSwitcherInMenu() {
+    // Find the navigation menu
+    const navMenu = document.querySelector('nav ul');
+    
+    if (navMenu) {
+        // Remove existing language switcher if it exists
+        const existingLangItem = document.querySelector('.lang-menu-item');
+        if (existingLangItem) {
+            existingLangItem.remove();
+        }
+        
+        // Create a new list item for language switcher
+        const langLi = document.createElement('li');
+        langLi.className = 'lang-menu-item';
+        
+        // Create language switcher title
+        const langTitle = document.createElement('div');
+        langTitle.className = 'lang-title';
+        langTitle.innerHTML = '<span data-lang-he>שפה</span><span data-lang-ar>اللغة</span>';
+        langLi.appendChild(langTitle);
+        
+        // Create language buttons container
+        const langBtnsContainer = document.createElement('div');
+        langBtnsContainer.className = 'lang-btns-container';
+        
+        // Create Arabic button
+        const arButton = document.createElement('button');
+        arButton.className = 'lang-btn';
+        arButton.setAttribute('data-lang', 'ar');
+        arButton.textContent = 'العربية';
+        
+        // Create Hebrew button
+        const heButton = document.createElement('button');
+        heButton.className = 'lang-btn';
+        heButton.setAttribute('data-lang', 'he');
+        heButton.textContent = 'עברית';
+        
+        // Append buttons to container
+        langBtnsContainer.appendChild(arButton);
+        langBtnsContainer.appendChild(heButton);
+        
+        // Append container to list item
+        langLi.appendChild(langBtnsContainer);
+        
+        // Add language switcher to the navigation menu
+        navMenu.appendChild(langLi);
+        
+        // Dispatch event to notify language_switcher.js that buttons are created
+        document.dispatchEvent(new Event('languageSwitcherCreated'));
+    }
+}

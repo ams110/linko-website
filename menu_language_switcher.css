@@ -1,0 +1,228 @@
+/* تنسيق أزرار تغيير اللغة في القائمة الرئيسية */
+.lang-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+}
+
+.lang-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 16px;
+}
+
+.lang-btns-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.lang-menu-item .lang-btn {
+    padding: 8px 15px;
+    background-color: rgba(0, 91, 159, 0.2);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 80px;
+}
+
+.lang-menu-item .lang-btn:hover {
+    background-color: rgba(0, 91, 159, 0.5);
+    transform: translateY(-2px);
+}
+
+.lang-menu-item .lang-btn.active {
+    background-color: rgba(0, 91, 159, 0.9);
+    box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+}
+
+/* إزالة تنسيق زر تغيير اللغة القديم */
+.language-switcher {
+    display: none !important;
+}
+
+/* زر القائمة للأجهزة المحمولة */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    right: 85px; /* تعديل الموضع ليكون بجانب الشعار */
+    z-index: 1003;
+    background-color: rgba(0, 91, 159, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: rgba(0, 91, 159, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* تحسين تنسيق القائمة الرئيسية للتوافق مع أزرار اللغة */
+@media (max-width: 768px) {
+    /* إظهار زر القائمة */
+    .menu-toggle {
+        display: block;
+    }
+    
+    /* تنسيق زر القائمة عند فتح القائمة */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    /* تنسيق القائمة الرئيسية لتكون قابلة للطي */
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 1001;
+        transition: all 0.3s ease;
+        overflow-y: auto;
+    }
+    
+    nav.active {
+        right: 0;
+    }
+    
+    /* تحسين تنسيق القائمة الرئيسية */
+    nav ul {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 70px;
+        gap: 15px;
+    }
+    
+    /* تحسين حجم وتباعد عناصر القائمة */
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li a {
+        padding: 12px 20px;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* تحسين موضع الشعار */
+    .logo {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1002;
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        height: 50px;
+        width: auto;
+    }
+    
+    /* تحسين تنسيق العنوان الرئيسي */
+    .hero h1 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    
+    .hero p {
+        font-size: 14px;
+    }
+    
+    /* تحسين تنسيق زر التواصل */
+    .contact-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* تنسيق خاص للشاشات الكبيرة */
+@media (min-width: 769px) {
+    /* إخفاء أزرار اللغة من القائمة الرئيسية في الشاشات الكبيرة */
+    .lang-menu-item {
+        display: flex;
+        flex-direction: row;
+        margin-right: 0;
+    }
+    
+    /* تحسين موضع الشعار وزر القائمة */
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        height: 60px;
+        width: auto;
+        margin-left: 15px;
+    }
+    
+    /* إظهار زر القائمة بجانب الشعار في الشاشات الكبيرة */
+    .menu-toggle {
+        display: none;
+    }
+}
+
+/* تحسينات إضافية للأجهزة الصغيرة جداً */
+@media (max-width: 480px) {
+    /* تعديل موضع زر القائمة للأجهزة الصغيرة */
+    .menu-toggle {
+        right: 70px;
+        top: 15px;
+        padding: 6px 8px;
+    }
+    
+    .menu-toggle .bar {
+        width: 22px;
+        height: 2px;
+        margin: 4px 0;
+    }
+    
+    /* تعديل حجم الشعار للأجهزة الصغيرة */
+    .logo img {
+        height: 45px;
+    }
+}
