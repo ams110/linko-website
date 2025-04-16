@@ -1,4 +1,4 @@
-// تحسين نموذج الاتصال لموقع Linko مع Formspree
+// تحسين نموذج الاتصال لموقع Linko
 
 document.addEventListener('DOMContentLoaded', function() {
     // الحصول على نموذج الاتصال
@@ -7,34 +7,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactForm) {
         // إضافة معالج الأحداث لتقديم النموذج
         contactForm.addEventListener('submit', function(e) {
-            // لا نمنع السلوك الافتراضي هنا لأننا نريد أن يرسل Formspree البيانات
-            
-            // إظهار مؤشر التحميل
-            const loadingIndicator = document.querySelector('.form-loading');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'flex';
-            }
+            e.preventDefault();
             
             // التحقق من صحة البيانات المدخلة
-            if (!validateForm()) {
-                e.preventDefault(); // منع الإرسال إذا كان النموذج غير صالح
+            if (validateForm()) {
+                // إظهار رسالة نجاح
+                showSuccessMessage();
                 
-                // إخفاء مؤشر التحميل إذا فشل التحقق
-                if (loadingIndicator) {
-                    loadingIndicator.style.display = 'none';
-                }
-            }
-            
-            // تخزين بيانات النموذج في التخزين المحلي للاستخدام المستقبلي
-            if (window.localStorage) {
-                localStorage.setItem('linko_form_name', document.getElementById('name').value);
-                localStorage.setItem('linko_form_email', document.getElementById('email').value);
-                localStorage.setItem('linko_form_phone', document.getElementById('phone').value);
+                // إعادة تعيين النموذج
+                contactForm.reset();
+                
+                // يمكن إضافة كود هنا لإرسال البيانات إلى الخادم
+                // مثال: sendFormData();
             }
         });
         
         // إضافة مستمعي أحداث للتحقق من الإدخال في الوقت الفعلي
-        const formInputs = contactForm.querySelectorAll('input, textarea, select');
+        const formInputs = contactForm.querySelectorAll('input, textarea');
         formInputs.forEach(input => {
             input.addEventListener('blur', function() {
                 validateInput(this);
@@ -49,17 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
-        // استعادة البيانات المخزنة سابقًا إذا كانت متوفرة
-        if (window.localStorage) {
-            const savedName = localStorage.getItem('linko_form_name');
-            const savedEmail = localStorage.getItem('linko_form_email');
-            const savedPhone = localStorage.getItem('linko_form_phone');
-            
-            if (savedName) document.getElementById('name').value = savedName;
-            if (savedEmail) document.getElementById('email').value = savedEmail;
-            if (savedPhone) document.getElementById('phone').value = savedPhone;
-        }
     }
 });
 
@@ -68,7 +46,6 @@ function validateForm() {
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
-    const serviceInput = document.getElementById('service');
     const messageInput = document.getElementById('message');
     
     let isValid = true;
@@ -77,7 +54,6 @@ function validateForm() {
     if (!validateInput(nameInput)) isValid = false;
     if (!validateInput(emailInput)) isValid = false;
     if (!validateInput(phoneInput)) isValid = false;
-    if (serviceInput && !validateInput(serviceInput)) isValid = false;
     if (!validateInput(messageInput)) isValid = false;
     
     return isValid;
@@ -112,12 +88,6 @@ function validateInput(input) {
         errorMessage = currentLang === 'ar' ? 'يرجى إدخال رقم هاتف صحيح' : 'אנא הזן מספר טלפון חוקי';
         isValid = false;
     }
-    // التحقق من اختيار الخدمة
-    else if (input.tagName === 'SELECT' && input.value === '') {
-        const currentLang = document.documentElement.lang;
-        errorMessage = currentLang === 'ar' ? 'يرجى اختيار خدمة' : 'אנא בחר שירות';
-        isValid = false;
-    }
     
     // إظهار رسالة الخطأ إذا كان الإدخال غير صالح
     if (!isValid) {
@@ -149,35 +119,51 @@ function validatePhone(phone) {
     return re.test(String(phone).replace(/\s/g, ''));
 }
 
-// إضافة أنماط CSS للتحقق من صحة النموذج ومؤشر التحميل
+// إظهار رسالة نجاح
+function showSuccessMessage() {
+    // إنشاء عنصر رسالة النجاح
+    const successMessage = document.createElement('div');
+    successMessage.className = 'success-message';
+    
+    // تعيين محتوى الرسالة حسب اللغة الحالية
+    const currentLang = document.documentElement.lang;
+    if (currentLang === 'ar') {
+        successMessage.innerHTML = '<i class="fas fa-check-circle"></i> تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
+    } else {
+        successMessage.innerHTML = '<i class="fas fa-check-circle"></i> ההודעה שלך נשלחה בהצלחה! ניצור איתך קשר בקרוב.';
+    }
+    
+    // تنسيق الرسالة
+    successMessage.style.backgroundColor = 'rgba(0, 176, 255, 0.1)';
+    successMessage.style.color = '#00b0ff';
+    successMessage.style.padding = '15px';
+    successMessage.style.borderRadius = '5px';
+    successMessage.style.marginTop = '20px';
+    successMessage.style.textAlign = 'center';
+    successMessage.style.fontWeight = 'bold';
+    successMessage.style.border = '1px solid rgba(0, 176, 255, 0.3)';
+    successMessage.style.animation = 'fadeIn 0.5s ease-out';
+    
+    // إضافة الرسالة إلى النموذج
+    const contactForm = document.querySelector('.contact-form form');
+    contactForm.parentElement.appendChild(successMessage);
+    
+    // إزالة الرسالة بعد 5 ثوانٍ
+    setTimeout(() => {
+        successMessage.style.animation = 'fadeOut 0.5s ease-in';
+        setTimeout(() => {
+            successMessage.remove();
+        }, 500);
+    }, 5000);
+}
+
+// إضافة أنماط CSS للتحقق من صحة النموذج
 document.addEventListener('DOMContentLoaded', function() {
     const style = document.createElement('style');
     style.textContent = `
-        .form-group input.invalid, .form-group textarea.invalid, .form-group select.invalid {
+        .form-group input.invalid, .form-group textarea.invalid {
             border-color: #ff5252;
             box-shadow: 0 0 5px rgba(255, 82, 82, 0.3);
-        }
-        
-        .form-loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(0, 176, 255, 0.2);
-            border-radius: 50%;
-            border-top-color: #00b0ff;
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 10px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
         
         @keyframes fadeIn {

@@ -1,40 +1,36 @@
 /* تنسيق أزرار تغيير اللغة في القائمة الرئيسية */
 .lang-menu-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    margin: 15px 0;
-    padding: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: auto;
 }
 
 .lang-title {
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #fff;
-    font-size: 16px;
+    display: none; /* إخفاء عنوان اللغة في وضع سطح المكتب */
 }
 
 .lang-btns-container {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     justify-content: center;
-    width: 100%;
+    width: auto;
 }
 
 .lang-menu-item .lang-btn {
-    padding: 8px 15px;
+    padding: 5px 10px;
     background-color: rgba(0, 91, 159, 0.2);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
     font-size: 14px;
-    min-width: 80px;
+    min-width: 60px;
 }
 
 .lang-menu-item .lang-btn:hover {
@@ -44,7 +40,7 @@
 
 .lang-menu-item .lang-btn.active {
     background-color: rgba(0, 91, 159, 0.9);
-    box-shadow: 0 0 10px rgba(0, 176, 255, 0.5);
+    box-shadow: 0 0 5px rgba(0, 176, 255, 0.5);
 }
 
 /* إزالة تنسيق زر تغيير اللغة القديم */
@@ -57,7 +53,7 @@
     display: none;
     position: fixed;
     top: 15px;
-    right: 85px; /* تعديل الموضع ليكون بجانب الشعار */
+    right: 15px;
     z-index: 1003;
     background-color: rgba(0, 91, 159, 0.7);
     color: white;
@@ -115,6 +111,7 @@
         z-index: 1001;
         transition: all 0.3s ease;
         overflow-y: auto;
+        padding: 20px;
     }
     
     nav.active {
@@ -126,9 +123,9 @@
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding-top: 70px;
-        gap: 15px;
+        gap: 20px;
     }
     
     /* تحسين حجم وتباعد عناصر القائمة */
@@ -141,17 +138,45 @@
     
     nav ul li a {
         padding: 12px 20px;
-        font-size: 16px;
+        font-size: 18px;
         display: block;
         width: 100%;
         margin: 0;
+    }
+    
+    /* تنسيق قسم اللغة في القائمة المنسدلة */
+    .lang-menu-item {
+        margin-top: 30px !important;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .lang-title {
+        display: block;
+        margin-bottom: 15px;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .lang-btns-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .lang-menu-item .lang-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        min-width: 100px;
     }
     
     /* تحسين موضع الشعار */
     .logo {
         position: fixed;
         top: 10px;
-        right: 10px;
+        right: 70px;
         z-index: 1002;
         display: flex;
         align-items: center;
@@ -177,11 +202,16 @@
         padding: 10px 20px;
         font-size: 14px;
     }
+    
+    /* إخفاء شريط اللغة في أسفل الصفحة على الأجهزة المحمولة */
+    .language-bar {
+        display: none;
+    }
 }
 
 /* تنسيق خاص للشاشات الكبيرة */
 @media (min-width: 769px) {
-    /* إخفاء أزرار اللغة من القائمة الرئيسية في الشاشات الكبيرة */
+    /* تحسين أزرار اللغة في القائمة الرئيسية في الشاشات الكبيرة */
     .lang-menu-item {
         display: flex;
         flex-direction: row;
@@ -204,13 +234,31 @@
     .menu-toggle {
         display: none;
     }
+    
+    /* تنسيق القائمة الرئيسية في الشاشات الكبيرة */
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    /* تنسيق عناصر القائمة في الشاشات الكبيرة */
+    nav ul li {
+        margin: 0 10px;
+    }
+    
+    /* تنسيق أزرار اللغة في الشاشات الكبيرة */
+    .lang-menu-item {
+        margin-left: auto;
+    }
 }
 
 /* تحسينات إضافية للأجهزة الصغيرة جداً */
 @media (max-width: 480px) {
     /* تعديل موضع زر القائمة للأجهزة الصغيرة */
     .menu-toggle {
-        right: 70px;
+        right: 15px;
         top: 15px;
         padding: 6px 8px;
     }
@@ -225,4 +273,48 @@
     .logo img {
         height: 45px;
     }
+    
+    /* تعديل حجم عناصر القائمة للأجهزة الصغيرة */
+    nav ul li a {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+    
+    /* تعديل حجم أزرار اللغة للأجهزة الصغيرة */
+    .lang-menu-item .lang-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+        min-width: 80px;
+    }
+}
+
+/* تنسيق شريط اللغة في أسفل الصفحة */
+.language-bar {
+    background-color: rgba(0, 91, 159, 0.7);
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.language-bar .lang-btn {
+    padding: 5px 15px;
+    margin: 0 5px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.language-bar .lang-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-bar .lang-btn.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
 }
